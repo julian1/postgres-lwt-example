@@ -9,13 +9,13 @@ end
 module Lwt_PGOCaml = PGOCaml_generic.Make (Lwt_thread)
 
 let run_query () =
-    let query = "select * from pg_class "
+    let query = "select relnamespace from pg_class where relnamespace = $1  "
     and name = "stmt1" (* nonce identifier of prepared statement *)
     in
 
     lwt dbh = Lwt_PGOCaml.connect ~user:"meteo" ~host:"127.0.0.1" ~database: "postgres" ~password:"meteo" () in
         Lwt_PGOCaml.prepare dbh ~query ~name () >>
-        Lwt_PGOCaml.execute dbh ~name ~params:[] () >>=
+        Lwt_PGOCaml.execute dbh ~name ~params:[ Some (Lwt_PGOCaml.string_of_int 11) ] () >>=
         fun s -> Lwt_list.iter_s Util.print_row s >>
         Lwt_PGOCaml.close dbh
 
