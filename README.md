@@ -1,10 +1,16 @@
 
+### Build
+```
 sudo apt-get install libpcre3-dev
 opam install pgocaml
 
 corebuild -package pgocaml,lwt,lwt.unix,lwt.syntax main.byte
 
+```
 refs
+
+git@github.com:mk270/postgres-lwt-exampl
+
 http://docs.camlcity.org/docs/godipkg/3.12/godi-pgocaml/lib/ocaml/pkg-lib/pgocaml/pGOCaml_generic.mli
 
 
