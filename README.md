@@ -9,7 +9,7 @@ corebuild -package pgocaml,lwt,lwt.unix,lwt.syntax main.byte
 ```
 refs
 
-git@github.com:mk270/postgres-lwt-exampl
+http://github.com/mk270/postgres-lwt-exampl
 
 http://docs.camlcity.org/docs/godipkg/3.12/godi-pgocaml/lib/ocaml/pkg-lib/pgocaml/pGOCaml_generic.mli
 
