@@ -35,7 +35,10 @@ let run_query () =
         >>= fun (param_desc,row_desc) -> 
             match row_desc with 
                 Some row_desc' -> ( 
-                    fold_m (fun acc (e : Lwt_PGOCaml.result_description ) -> log e.name  ) () row_desc'  
+                    let f acc (e : Lwt_PGOCaml.result_description ) =  
+                        log e.name
+                    in
+                    fold_m f () row_desc'  
                 ) 
 
 (*
