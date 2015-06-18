@@ -19,7 +19,8 @@ let run_query () =
 
     lwt db = Lwt_PGOCaml.connect ~host:"127.0.0.1" ~database: "meteo" ~user:"meteo" ~password:"meteo" () in
          (* Lwt_PGOCaml.verbose (ref 2 ) >>  *)
- 
+
+        (* no ssl *) 
         (* let name = "stmt1" in nonce identifier of prepared statement *)
         let query = "select * from pg_class where relnamespace = $1  " in
         Lwt_PGOCaml.prepare db ~query (* ~name*) () 
@@ -36,7 +37,7 @@ let run_query () =
             match row_desc with 
                 Some row_desc' -> ( 
                     let f acc (e : Lwt_PGOCaml.result_description ) =  
-                        log e.name
+                        log @@ e.name ^ " " ^ (Lwt_PGOCaml.name_of_type e.field_type)
                     in
                     fold_m f () row_desc'  
                 ) 
