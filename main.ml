@@ -14,6 +14,8 @@ let run_query () =
     in
 
     lwt dbh = Lwt_PGOCaml.connect ~user:"meteo" ~host:"127.0.0.1" ~database: "postgres" ~password:"meteo" () in
+        Lwt_PGOCaml.verbose ref 2  >>
+ 
         Lwt_PGOCaml.prepare dbh ~query ~name () >>
         Lwt_PGOCaml.execute dbh ~name ~params:[ Some (Lwt_PGOCaml.string_of_int 11) ] () >>=
         fun s -> Lwt_list.iter_s Util.print_row s >>
